@@ -10,10 +10,12 @@
   "scripts": {
     "start": "node index.js",
     "server": "nodemon index.js",
-    "client": "npm run start --prefix ../client",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "client": "( cd ../client && yarn start)",
+    "dev": "concurrently \"yarn server\" \"yarn client\"",
+    "client-install": "(cd ../client && yarn install)",
+    "client-build": "(cd ../client && yarn run build)",
     "heroku-postbuild":
-      "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+      "YARN_PRODUCTION=false yarn run client-install && yarn run client-build"
   },
   "author": "",
   "license": "ISC",
