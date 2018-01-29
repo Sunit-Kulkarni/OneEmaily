@@ -13,6 +13,7 @@ module.exports = app => {
       subject,
       body,
       recipients: recipients.split(',').map(email => ({ email })),
+      //this creates subdocument collection of recipients for survey
       _user: req.user.id,
       dateSent: Date.now()
     });
