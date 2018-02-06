@@ -26,9 +26,8 @@ module.exports = app => {
           choice: match.choice
         };
       }
-
-      console.log(events);
     });
+    console.log(events);
   });
 
   app.post('/api/surveys', requireLogin, requireCredits, async (req, res) => {
