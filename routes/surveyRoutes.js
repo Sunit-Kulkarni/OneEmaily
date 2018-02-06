@@ -17,7 +17,7 @@ module.exports = app => {
   app.post('/api/surveys/webhooks', (req, res) => {
     const p = new Path('/api/surveys/:surveyId/:choice');
 
-    const events = _.chain(req.body)
+    _.chain(req.body)
       .map(({ email, url }) => {
         const match = p.test(new URL(url).pathname); //only care about route part
         if (match) {
@@ -30,9 +30,23 @@ module.exports = app => {
       })
       .compact() //remove [undefined]
       .uniqBy('email', 'surveyID') //remove duplicates
+      .each(({ surveyId, email, choice }) => {
+        //stay on mongo side
+        Survey.updateOne(
+          {
+            _id: surveyId, //mongo needs _id for query
+            recipients: {
+              $elemMatch: { email: email, responded: false }
+            }
+          },
+          {
+            $inc: { [choice]: 1 },
+            $set: { 'recipients.$.responded': true }
+          }
+        ).exec(); //actually execute query
+      })
       .value();
 
-    console.log(uniqueEvents);
     res.send({});
   });
 
