@@ -1,3 +1,5 @@
+//This isn't working quite yet. Need frontend setup first.
+//Not quite making geocode work yet
 const keys = require('../config/keys');
 const requireLogin = require('../middlewares/requireLogin');
 
