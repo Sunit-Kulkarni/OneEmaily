@@ -9,19 +9,9 @@ const googleMapsClient = require('@google/maps').createClient({
 
 module.exports = app => {
   app.get('/map/cities', async (req, res) => {
-    var test = googleMapsClient.geocode(
-      {
-        address: '1600 Amphitheatre Parkway, Mountain View, CA'
-      },
-      function(err, response) {
-        if (!err) {
-          //response = response.json.results;
-          console.log(response);
-          res.send(response);
-        }
-      }
-    );
-    console.log(test);
+    var test = googleMapsClient.geocode({
+      address: '100 Aaron Way, North Wales, PA'
+    });
   });
   //testing with a get method for now. will be a post for selecting cities
 };
