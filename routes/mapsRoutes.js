@@ -12,6 +12,7 @@ module.exports = app => {
     var test = googleMapsClient.geocode({
       address: '100 Aaron Way, North Wales, PA'
     });
+    res.send();
   });
   //testing with a get method for now. will be a post for selecting cities
 };
